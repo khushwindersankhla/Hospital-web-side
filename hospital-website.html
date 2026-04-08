@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rana Hospital - Quality Healthcare in Jaipur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0891b2;
+            --primary-dark: #0369a1;
+            --secondary: #06b6d4;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --light-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: white;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #06b6d4, #0369a1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .btn-appointment {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-appointment:hover {
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .navbar {
+                padding: 1rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0369a1, #06b6d4, #10b981);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-dark);
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .page-header h1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section a,
+        .footer-section p {
+            color: #cbd5e1;
+            text-decoration: none;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .whatsapp-btn:hover {
+            background: #20c56a;
+            transform: scale(1.1);
+        }
+
+        /* Emergency Styles */
+        .emergency-section {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .emergency-section h2 {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .emergency-section p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        /* Blog Cards */
+        .blog-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e0f2fe, #ecfdf5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-category {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="navbar">
+            <div class="logo" onclick="showPage('home')">
+                <div class="logo-icon">🏥</div>
+                <span>Rana Hospital</span>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="showPage('home')">Home</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('services')">Services</a></li>
+                <li><a onclick="showPage('doctors')">Doctors</a></li>
+                <li><a onclick="showPage('departments')">Departments</a></li>
+                <li><a onclick="showPage('facilities')">Facilities</a></li>
+                <li><a onclick="showPage('blog')">Blog</a></li>
+                <li><a onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <button class="btn-appointment" onclick="showPage('appointment')">Book Appointment</button>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <h1>Welcome to Rana Hospital</h1>
+            <p>Your trusted healthcare partner providing world-class medical services with compassion and excellence</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="showPage('appointment')">Book Now</button>
+                <button class="btn-secondary" onclick="showPage('emergency')">Emergency</button>
+            </div>
+        </section>
+
+        <div class="container">
+            <h2 style="text-align: center; margin: 2rem 0;">Our Services</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">🚨</div>
+                    <h3>24/7 Emergency</h3>
+                    <p>Round-the-clock emergency services with trained paramedics</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👨‍⚕️</div>
+                    <h3>Expert Doctors</h3>
+                    <p>Highly qualified medical professionals with vast experience</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏗️</div>
+                    <h3>Modern Facilities</h3>
+                    <p>State-of-the-art medical equipment and infrastructure</p>
+                </div>
+            </div>
+
+            <section class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>25+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>Expert Doctors</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>100K+</h3>
+                        <p>Happy Patients</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Departments</p>
+                    </div>
+                </div>
+            </section>
+
+            <div style="background: linear-gradient(135deg, #10b981, #06b6d4); color: white; padding: 2rem; border-radius: 16px; text-align: center; margin: 2rem 0;">
+                <h2>Need Medical Assistance?</h2>
+                <p style="margin: 1rem 0; font-size: 1.1rem;">Contact us now for immediate help and expert consultation</p>
+                <button class="btn-primary" onclick="showPage('contact')">Get in Touch</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="page-header">
+            <h1>About Rana Hospital</h1>
+            <p>Pioneering healthcare excellence in Jaipur since 1999</p>
+        </div>
+        <div class="container">
+            <div class="grid-2">
+                <div>
+                    <h2>Our Story</h2>
+                    <p>Founded in 1999, Rana Hospital has been a beacon of hope and healing in Jaipur. With over two decades of excellence, we have grown from a small clinic to a comprehensive multi-specialty hospital.</p>
+                    <p style="margin-top: 1rem;">We remain committed to providing world-class healthcare with compassion, integrity, and innovation. Our team of dedicated professionals works tirelessly to ensure patient comfort and recovery.</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 300px;">
+                    <div style="font-size: 4rem;">🏥</div>
+                </div>
+            </div>
+
+            <div style="margin: 3rem 0;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Our Core Values</h2>
+                <div class="grid-2">
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">✓</div>
+                        <h3>Integrity</h3>
+                        <p>Maintaining highest ethical standards</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⭐</div>
+                        <h3>Excellence</h3>
+                        <p>Striving for perfection in all we do</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">❤️</div>
+                        <h3>Compassion</h3>
+                        <p>Caring for every patient with dedication</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">💡</div>
+                        <h3>Innovation</h3>
+                        <p>Embracing modern medical advancements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <div class="page-header">
+            <h1>Our Services</h1>
+            <p>Comprehensive medical services under one roof</p>
+        </div>
+        <div class="container">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-icon">🚨</div>
+                    <h3>Emergency Care</h3>
+                    <p>24/7 emergency services with trained paramedics and life support equipment</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔪</div>
+                    <h3>General Surgery</h3>
+                    <p>Expert surgical interventions and procedures with advanced technology</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👨‍⚕️</div>
+                    <h3>Internal Medicine</h3>
+                    <p>Comprehensive medical care for adults with chronic diseases</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👶</div>
+                    <h3>Pediatrics</h3>
+                    <p>Specialized care for children and infants with expert pediatricians</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🦴</div>
+                    <h3>Orthopedics</h3>
+                    <p>Bone, joint, and musculoskeletal care with surgical expertise</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <h3>Cardiology</h3>
+                    <p>Heart and cardiovascular disease treatment with advanced equipment</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Neurology</h3>
+                    <p>Brain and nervous system care with specialist doctors</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Laboratory</h3>
+                    <p>Complete pathology and lab services with latest technology</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🖼️</div>
+                    <h3>Radiology</h3>
+                    <p>Advanced imaging and diagnostic services for accurate diagnosis</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛏️</div>
+                    <h3>ICU</h3>
+                    <p>Intensive care with advanced monitoring and critical support</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💊</div>
+                    <h3>Pharmacy</h3>
+                    <p>24/7 pharmacy services with complete drug inventory</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏃</div>
+                    <h3>Physical Therapy</h3>
+                    <p>Rehabilitation and physical fitness programs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctors Page -->
+    <div id="doctors" class="page">
+        <div class="page-header">
+            <h1>Our Doctors</h1>
+            <p>Meet our team of experienced medical professionals</p>
+        </div>
+        <div class="container">
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍⚕️</div>
+                    <h3>Dr. Rajesh Kumar</h3>
+                    <p style="color: var(--primary); font-weight: 600;">Cardiology</p>
+                    <p style="color: var(--text-light);">20+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👩‍⚕️</div>
+                    <h3>Dr. Priya Singh</h3>
+                    <p style="color: var(--primary); font-weight: 600;">Neurology</p>
+                    <p style="color: var(--text-light);">18+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍⚕️</div>
+                    <h3>Dr. Amit Patel</h3>
+                    <p style="color: var(--primary); font-weight: 600;">Orthopedics</p>
+                    <p style="color: var(--text-light);">15+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👩‍⚕️</div>
+                    <h3>Dr. Isha Sharma</h3>
+                    <p style="color: var(--primary); font-weight: 600;">Pediatrics</p>
+                    <p style="color: var(--text-light);">12+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍⚕️</div>
+                    <h3>Dr. Vikas Gupta</h3>
+                    <p style="color: var(--primary); font-weight: 600;">General Surgery</p>
+                    <p style="color: var(--text-light);">22+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👩‍⚕️</div>
+                    <h3>Dr. Neha Verma</h3>
+                    <p style="color: var(--primary); font-weight: 600;">Gastroenterology</p>
+                    <p style="color: var(--text-light);">14+ years experience</p>
+                    <button class="btn-primary" onclick="showPage('appointment')" style="width: 100%; margin-top: 1rem;">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Departments Page -->
+    <div id="departments" class="page">
+        <div class="page-header">
+            <h1>Our Departments</h1>
+            <p>Specialized medical departments with expert teams</p>
+        </div>
+        <div class="container">
+            <div style="display: grid; gap: 1.5rem;">
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>Cardiology</h3>
+                        <p style="margin-bottom: 1rem;">Advanced cardiac care and interventions with latest technology</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">12 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">25 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">🏥</div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>Neurology</h3>
+                        <p style="margin-bottom: 1rem;">Brain and nervous system treatment with specialist team</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">8 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">20 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">🧠</div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>Orthopedics</h3>
+                        <p style="margin-bottom: 1rem;">Bone and joint surgery services with advanced techniques</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">10 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">30 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">🦴</div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>Pediatrics</h3>
+                        <p style="margin-bottom: 1rem;">Child and infant care with compassionate approach</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">9 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">18 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">👶</div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>General Surgery</h3>
+                        <p style="margin-bottom: 1rem;">General and emergency surgery with experienced surgeons</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">15 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">35 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">🔪</div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 2rem;">
+                    <div>
+                        <h3>ICU</h3>
+                        <p style="margin-bottom: 1rem;">Intensive care with critical support and monitoring</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Medical Staff</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">20 Doctors</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; color: var(--text-light);">Available Beds</p>
+                                <p style="font-weight: 600; font-size: 1.2rem;">40 Beds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.2;">🛏️</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Page -->
+    <div id="appointment" class="page">
+        <div class="page-header">
+            <h1>Book an Appointment</h1>
+            <p>Schedule your consultation with our expert doctors</p>
+        </div>
+        <div class="container">
+            <div class="contact-container">
+                <div>
+                    <h3 style="margin-bottom: 2rem;">Quick Info</h3>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📞</div>
+                        <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.25rem;">Call Us</p>
+                        <p style="font-weight: 600; color: var(--text-dark);">988988989</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📍</div>
+                        <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.25rem;">Location</p>
+                        <p style="font-weight: 600; color: var(--text-dark);">Jaipur, India</p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⏰</div>
+                        <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.25rem;">Hours</p>
+                        <p style="font-weight: 600; color: var(--text-dark);">24/7 Available</p>
+                    </div>
+                </div>
+
+                <form onsubmit="submitAppointment(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="apptName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="apptEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="apptPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Select Department</label>
+                            <select id="apptDept" required>
+                                <option value="">Choose Department</option>
+                                <option>Cardiology</option>
+                                <option>Neurology</option>
+                                <option>Orthopedics</option>
+                                <option>Pediatrics</option>
+                                <option>General Surgery</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Date</label>
+                            <input type="date" id="apptDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Time</label>
+                        <input type="time" id="apptTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Message (Optional)</label>
+                        <textarea id="apptMsg" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem;">Book Appointment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Page -->
+    <div id="emergency" class="page">
+        <div class="page-header">
+            <h1>Emergency Services</h1>
+            <p>24/7 Emergency Support - Available Always</p>
+        </div>
+        <div class="container">
+            <div class="emergency-section">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🚨</div>
+                <h2>Emergency Hotline</h2>
+                <p style="font-size: 2rem; font-weight: bold; margin: 1rem 0;">988988989</p>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">Call immediately for emergency assistance</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-primary" onclick="window.location.href='tel:988988989'">Call Now</button>
+                    <button style="padding: 0.75rem 2rem; background: #25d366; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onclick="window.location.href='https://wa.me/988988989'">WhatsApp</button>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; margin: 3rem 0;">Emergency Services Available</h2>
+            <div class="grid-2">
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Trauma & Accidents</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Chest Pain</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Stroke Symptoms</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Severe Bleeding</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Difficulty Breathing</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #dc2626;">
+                    <h3>Poisoning</h3>
+                    <p style="color: #dc2626; font-weight: 600;">Immediate Response</p>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border: 2px solid var(--primary); margin-top: 2rem;">
+                <h3>🚑 Ambulance Service</h3>
+                <p style="margin-bottom: 1rem;">Our emergency ambulance service is available 24/7 with trained paramedics and life-support equipment.</p>
+                <button class="btn-primary" onclick="window.location.href='tel:988988989'">Request Ambulance</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Facilities Page -->
+    <div id="facilities" class="page">
+        <div class="page-header">
+            <h1>Our Facilities</h1>
+            <p>State-of-the-art medical equipment and infrastructure</p>
+        </div>
+        <div class="container">
+            <div class="grid-2">
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🛏️</div>
+                    <h3>ICU Beds</h3>
+                    <p>40 fully equipped intensive care beds with continuous monitoring systems</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🔪</div>
+                    <h3>Operation Theaters</h3>
+                    <p>10 modern operation theaters equipped with advanced surgical technology</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🔬</div>
+                    <h3>Diagnostic Lab</h3>
+                    <p>Complete pathology services with automated analyzers and testing equipment</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🖼️</div>
+                    <h3>Radiology</h3>
+                    <p>CT scan, MRI, X-ray, and ultrasound facilities with latest technology</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">💊</div>
+                    <h3>Pharmacy</h3>
+                    <p>24/7 pharmacy services with complete drug inventory and expert pharmacists</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🩸</div>
+                    <h3>Blood Bank</h3>
+                    <p>Complete blood banking and transfusion services with safe storage</p>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Advanced Equipment</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Advanced CT Scanner</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ MRI Machine</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ 3D Ultrasound</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Digital X-ray</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Echocardiography</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Ventilators</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Defibrillators</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Patient Monitors</div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; text-align: center; font-weight: 600;">✓ Infusion Pumps</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Page -->
+    <div id="testimonials" class="page">
+        <div class="page-header">
+            <h1>Patient Testimonials</h1>
+            <p>Stories from our satisfied patients</p>
+        </div>
+        <div class="container">
+            <div class="grid-3">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Excellent care and professional staff. My surgery went perfectly and recovery was smooth!"</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Rajesh Sharma</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Very clean facility and caring doctors. The nursing staff was extremely helpful. Highly recommended!"</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Priya Verma</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Best hospital in Jaipur. Emergency team was amazing! Quick response and excellent treatment."</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Amit Singh</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Great experience from admission to discharge. The doctors explained everything clearly. Thank you!"</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Neha Gupta</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Affordable prices and quality treatment. Very satisfied with the overall services and care."</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Vikas Yadav</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>"Doctor Rajesh was excellent and very professional. Recovery has been smooth thanks to proper care."</p>
+                    <p style="margin-top: 1rem; font-weight: 600;">- Anjali Mishra</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Page -->
+    <div id="gallery" class="page">
+        <div class="page-header">
+            <h1>Gallery</h1>
+            <p>Tour our hospital facilities and infrastructure</p>
+        </div>
+        <div class="container">
+            <div class="grid-3">
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🚨</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Emergency Ward</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🔪</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Operation Theater</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🛏️</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">ICU Setup</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🛏️</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Patient Rooms</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🪑</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Waiting Area</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">💊</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Pharmacy</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🔬</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Diagnostic Lab</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">👋</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Reception</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🍽️</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Cafeteria</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🌳</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Garden Area</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">📋</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Conference Room</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5); border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div style="font-size: 3rem;">🏥</div>
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 1rem; border-radius: 0 0 12px 12px; opacity: 0; transition: opacity 0.3s;">Entrance Lobby</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blog" class="page">
+        <div class="page-header">
+            <h1>Health Tips & Blog</h1>
+            <p>Learn about health and wellness</p>
+        </div>
+        <div class="container">
+            <div class="grid-2">
+                <div class="blog-card">
+                    <div class="blog-image">❤️</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Cardiology</p>
+                        <h3>Heart Health Tips</h3>
+                        <p>Learn how to maintain a healthy heart through proper diet and regular exercise routines.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">🩺</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Endocrinology</p>
+                        <h3>Managing Diabetes</h3>
+                        <p>Practical tips for managing blood sugar levels and living a healthy life with diabetes.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">🦴</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Orthopedics</p>
+                        <h3>Back Pain Relief</h3>
+                        <p>Discover effective exercises and treatment options for chronic back pain management.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">🧠</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Mental Health</p>
+                        <h3>Mental Health Matters</h3>
+                        <p>Understanding stress, anxiety, and knowing when to seek professional mental health support.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">🥗</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Nutrition</p>
+                        <h3>Nutrition Guide</h3>
+                        <p>A complete guide to balanced diet and nutrition for optimal wellness and health.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">😴</div>
+                    <div class="blog-content">
+                        <p class="blog-category">Wellness</p>
+                        <h3>Sleep Better Tonight</h3>
+                        <p>Tips to improve sleep quality and naturally overcome insomnia for better rest.</p>
+                        <a class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="page-header">
+            <h1>Contact Us</h1>
+            <p>Get in touch with us anytime</p>
+        </div>
+        <div class="container">
+            <div class="contact-container" style="grid-template-columns: 1fr 2fr;">
+                <div>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📍</div>
+                        <h3>Address</h3>
+                        <p>Rana Hospital<br>Jaipur, India</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📞</div>
+                        <h3>Phone</h3>
+                        <p>988988989</p>
+                        <p style="font-size: 0.85rem; color: var(--text-light);">24/7 Available</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📧</div>
+                        <h3>Email</h3>
+                        <p>info@ranahospital.com</p>
+                    </div>
+                    <div class="card" style="background: linear-gradient(135deg, #e0f2fe, #ecfdf5);">
+                        <h3 style="margin-bottom: 1rem;">Follow Us</h3>
+                        <div class="social-links">
+                            <button class="social-btn">f</button>
+                            <button class="social-btn">𝕏</button>
+                            <button class="social-btn">📷</button>
+                            <button class="social-btn">▶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <form onsubmit="submitContact(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="contactSubject" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMsg" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem;">Send Message</button>
+                </form>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h2 style="text-align: center; margin-bottom: 1rem;">Find Us on Map</h2>
+                <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #f0f9ff, #ecfdf5); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); flex-direction: column; gap: 1rem;">
+                    <div style="font-size: 3rem;">📍</div>
+                    <p style="text-align: center;">Rana Hospital, Jaipur, India</p>
+                    <button class="btn-primary" onclick="window.location.href='https://maps.google.com/?q=Jaipur'">Open in Google Maps</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Rana Hospital</h4>
+                <p>Your trusted healthcare partner providing excellent medical services with compassion and excellence.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a onclick="showPage('services')">Services</a>
+                <a onclick="showPage('doctors')">Doctors</a>
+                <a onclick="showPage('appointment')">Appointment</a>
+                <a onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Information</h4>
+                <p>Jaipur, India</p>
+                <p>📞 988988989</p>
+                <p>Available 24/7</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <button class="social-btn">f</button>
+                    <button class="social-btn">𝕏</button>
+                    <button class="social-btn">📷</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rana Hospital. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <button class="whatsapp-btn" onclick="window.location.href='https://wa.me/988988989'" title="Chat with us on WhatsApp">💬</button>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            const page = document.getElementById(pageId);
+            if (page) {
+                page.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+            
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function submitAppointment(e) {
+            e.preventDefault();
+            const name = document.getElementById('apptName').value;
+            if (name) {
+                alert('Appointment request submitted! We will contact you soon.');
+                document.querySelector('form').reset();
+            }
+        }
+
+        function submitContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            if (name) {
+                alert('Message sent successfully! Thank you for contacting us.');
+                document.querySelector('form').reset();
+            }
+        }
+    </script>
+</body>
+</html>
